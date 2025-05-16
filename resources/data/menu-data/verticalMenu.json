@@ -18,6 +18,26 @@
       "icon": "<span class='material-symbols-outlined'>settings</span>",
       "slug": "admin.business-settings.index"
     },
+     {
+      "url": "admin/projects",
+      "name": "Projects",
+      "icon": "<span class='material-symbols-outlined'>work</span>",
+      "slug": "admin.business-settings.index"
+    },
+      {
+      "url": "admin/employees",
+      "name": "Employees",
+      "icon": "<span class='material-symbols-outlined'>work</span>",
+      "slug": "admin.business-settings.index"
+    },
+
+     {
+      "url": "admin/assignprojects",
+      "name": "Assign projects",
+      "icon": "<span class='material-symbols-outlined'>work</span>",
+      "slug": "admin.business-settings.index"
+    },
+    
     {
       "navheader": "Managers Management",
       "slug": ""

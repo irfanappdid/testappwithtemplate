@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Livewire;
 
 use App\Exports\CustomExport;
@@ -25,7 +26,7 @@ class UserTable extends DataTableComponent
         $this->setFilterPillsStatus(false);
 
         $this->setFiltersDisabled();
-        $this->setBulkActionsDisabled();
+        // $this->setBulkActionsDisabled();
         $this->setColumnSelectDisabled();
 
         $this->setPrimaryKey('id')
@@ -91,7 +92,6 @@ class UserTable extends DataTableComponent
             Column::make('Created at', 'created_at')
                 ->format(function ($value) {
                     return '<span class="badge badge-light-success">' . date("M jS, Y h:i A", strtotime($value)) . '</span>';
-
                 })
                 ->html()
                 ->collapseOnTablet()
@@ -137,10 +137,7 @@ class UserTable extends DataTableComponent
         return $modal;
     }
 
-    public function refresh(): void
-    {
-
-    }
+    public function refresh(): void {}
     public function status($type)
     {
         $this->setFilter('status', $type);
