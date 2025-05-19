@@ -1,0 +1,11 @@
+{
+  "menu": [
+    {
+      "url": "employee/employee_dashboard",
+      "name": "Dashboard",
+      "icon": "<i data-feather='home'></i>",
+      "slug": "admin.home.index"
+    }
+  
+  ]
+}

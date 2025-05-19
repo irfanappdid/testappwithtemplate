@@ -131,11 +131,25 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function ()
     Route::resource('employee', ProjectController::class);
     Route::get('export-csv', [ProjectController::class, 'exportCSV'])->name('export');
     Route::get('generate-pdf', [ProjectController::class, 'generatePDF']);
-
 });
-route::prefix('employee')->group(function () {
-    Route::get('/login', [EmpdashboardController::class, 'index'])->name('employee.login');
-    Route::post('/login', [EmpdashboardController::class, 'store'])->name('employee.store');
-    Route::get('/employee_dashboard', [EmpdashboardController::class, 'employee_dashboard'])->name('employee.employee_dashboard');
-    Route::get('/logout', [EmpdashboardController::class, 'logout'])->name('logout-employee');
+// route::prefix('employee')->group(function () {
+//     Route::get('/login', [EmpdashboardController::class, 'index'])->name('employee.login');
+//     Route::post('/login', [EmpdashboardController::class, 'store'])->name('employee.store');
+//     Route::get('/employee_dashboard', [EmpdashboardController::class, 'employee_dashboard'])->name('employee.employee_dashboard');
+//     Route::get('/logout', [EmpdashboardController::class, 'logout'])->name('logout-employee');
+// });
+
+Route::prefix('employee')->name('employee.')->group(function () {
+
+    Route::middleware('guest')->group(function () {
+
+        Route::get('/login', [EmpdashboardController::class, 'index'])->name('login');
+        Route::post('/login', [EmpdashboardController::class, 'store'])->name('store');
+    });
+
+    Route::middleware('employee')->group(function () {
+
+        Route::get('/employee_dashboard', [EmpdashboardController::class, 'employee_dashboard'])->name('employee_dashboard');
+        Route::get('/logout', [EmpdashboardController::class, 'logout'])->name('logout-employee');
+    });
 });
