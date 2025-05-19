@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ProjectMail;
 use App\Models\Project;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Http\Request;
+use Mail;
 
 class ProjectController extends Controller
 {
@@ -17,6 +19,7 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
+
         // dd($request->input('project_title'));
         $project_title    = $request->input('name');
         $description      = $request->input('description');
@@ -36,11 +39,28 @@ class ProjectController extends Controller
             'project_timeline' => $project_timeline,
             // 'image'            => $image_name,
         ]);
-        return response([
-            'header' => 'Added',
-            'message' => 'Project Added successfully',
-            'table' => 'projects-table',
-        ]);
+
+
+        try {
+            Mail::to('irfanpathanppp@gmail.com')->send(new ProjectMail());
+            return response([
+                'header' => 'Added',
+                'message' => 'Project Added successfully',
+                'table' => 'projects-table',
+            ]);
+        } catch (\Exception $e) {
+            // Handle the exception
+            return response([
+                'header' => 'Error',
+                'message' => 'Failed to send email: ' . $e->getMessage(),
+                'table' => 'projects-table',
+            ]);
+        }
+        // return response([
+        //     'header' => 'Added',
+        //     'message' => 'Project Added successfully',
+        //     'table' => 'projects-table',
+        // ]);
     }
 
     public function edit($id)
@@ -94,7 +114,12 @@ class ProjectController extends Controller
 
     public function exportCSV()
     {
-        $projects = Project::all();
+        $projects = Project::first();
+
+        // $projects = Project::max('id');
+        // dd($projects);
+
+
 
         $csvFileName = 'projects.csv';
         $headers = [
